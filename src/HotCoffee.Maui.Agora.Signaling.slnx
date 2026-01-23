@@ -1,0 +1,10 @@
+<Solution>
+  <Folder Name="/Solution Items/">
+    <File Path="../.github/workflows/dotnet-build.yml" />
+    <File Path="../global.json" />
+    <File Path="../README.md" />
+  </Folder>
+  <Project Path="android/HotCoffee.Maui.Agora.Signaling.Android/HotCoffee.Maui.Agora.Signaling.Android.csproj" />
+  <Project Path="HotCoffee.Maui.Agora.Signaling/HotCoffee.Maui.Agora.Signaling.csproj" />
+  <Project Path="ios/HotCoffee.Maui.Agora.Signaling.iOS/HotCoffee.Maui.Agora.Signaling.iOS.csproj" />
+</Solution>

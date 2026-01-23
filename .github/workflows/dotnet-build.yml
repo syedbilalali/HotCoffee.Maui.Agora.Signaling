@@ -1,0 +1,30 @@
+name: Build
+
+on:
+    push:
+        branches:
+            - main
+        tags:
+            - '*'
+        paths-ignore:
+            - README.md
+    pull_request:
+        branches:
+            - main
+        paths-ignore:
+            - README.md
+env:
+    CurrentSemanticVersionBase: '1.0.0'
+    PathToLibrarySolution: 'src/HotCoffee.Maui.Agora.Signaling.slnx'
+    PathToSignalingAndroidCsproj: 'android/HotCoffee.Maui.Agora.Signaling.Android/HotCoffee.Maui.Agora.Signaling.Android.csproj'
+    PathToSignalingiOSCsproj: 'ios/HotCoffee.Maui.Agora.Signaling.iOS/HotCoffee.Maui.Agora.Signaling.iOS.csproj'
+    PathToSignalingCsproj: 'HotCoffee.Maui.Agora.Signaling/HotCoffee.Maui.Agora.Signaling.csproj'
+
+jobs:
+    build-library:
+        name: Build Library to Create Nugget
+        runs-on: ${{ matrix.os }}
+        strategy:
+            fail-fast: false
+            matrix:
+                os: [ windows-latest, macos-26 ]
