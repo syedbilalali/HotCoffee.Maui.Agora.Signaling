@@ -1,5 +1,11 @@
-﻿<metadata>
-  <!--
+﻿<metadata>	
+<!--- Renaming the io.agora Java Packaing into HotCoffee  -->
+<attr path="/api/package[@name='io.agora.rtm']" name="managedName">HotCoffee.Agora.Signaling.Android</attr>
+<attr path="/api/package[@name='io.agora.rtm.base.internal']" name="managedName">HotCoffee.Agora.Signaling.Android.Base.Internal</attr>
+<attr path="/api/package[@name='io.agora.rtm.internal']" name="managedName">HotCoffee.Agora.Signaling.Android.Internal</attr>
+<attr path="/api/package[@name='io.agora.rtm.utils']" name="managedName">HotCoffee.Maui.Agora.Signaling.Android.Utils</attr>
+<attr path="/api/package[@name='io.agora.rtm.utils.internal']" name="managedName">HotCoffee.Maui.Agora.Signaling.Android.Utils.Internal</attr>	
+ <!--
   This sample removes the class: android.support.v4.content.AsyncTaskLoader.LoadTask:
   <remove-node path="/api/package[@name='android.support.v4.content']/class[@name='AsyncTaskLoader.LoadTask']" />
   
