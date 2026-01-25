@@ -13,12 +13,19 @@ on:
             - main
         paths-ignore:
             - README.md
+concurrency:
+    group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+    cancel-in-progress: true
 env:
     CurrentSemanticVersionBase: '1.0.0'
+    LATEST_NET_VERSION: '10.0.x'
     PathToLibrarySolution: 'src/HotCoffee.Maui.Agora.Signaling.slnx'
     PathToSignalingAndroidCsproj: 'android/HotCoffee.Maui.Agora.Signaling.Android/HotCoffee.Maui.Agora.Signaling.Android.csproj'
     PathToSignalingiOSCsproj: 'ios/HotCoffee.Maui.Agora.Signaling.iOS/HotCoffee.Maui.Agora.Signaling.iOS.csproj'
-    PathToSignalingCsproj: 'HotCoffee.Maui.Agora.Signaling/HotCoffee.Maui.Agora.Signaling.csproj'
+    PathToSignalingMauiCsproj: 'HotCoffee.Maui.Agora.Signaling/HotCoffee.Maui.Agora.Signaling.csproj'
+    PathToSignalingSampleCsproj: 'samples/HotCoffeeMauiAgoraSignalingSampleCsproj/HotCoffeeMauiAgoraSignalingSampleCsproj.csproj'
+    HotCoffeeAgoraSignalingLibrary_Xcode_Version: '26.1'
+    HotCoffeeAgoraSignalingSample_Xcode_Version: '26.2'
 
 jobs:
     build-library:
@@ -28,3 +35,35 @@ jobs:
             fail-fast: false
             matrix:
                 os: [ windows-latest, macos-26 ]
+        steps:
+            -  name: Checkout code
+               uses: actions/checkout@v6
+
+            -   name: Set Latest Xcode Version
+                if: runner.os == 'macOS'
+                uses: maxim-lobanov/setup-xcode@v1
+                with:
+                    xcode-version: ${{ env.HotCoffeeAgoraSignalingSample_Xcode_Version }}
+
+            -   name: Install Latest .NET SDK, v${{ env.LATEST_NET_VERSION }}
+                uses: actions/setup-dotnet@v5
+                with:
+                    dotnet-version: ${{ env.LATEST_NET_VERSION }}
+                    dotnet-quality: 'ga'
+
+            -   uses: actions/setup-java@v5
+                with:
+                    distribution: 'microsoft'
+                    java-version: '21'
+
+            -   name: Install .NET MAUI Workload
+                run: |
+                    dotnet workload install maui
+                    dotnet workload update
+
+            -   name: Display dotnet info
+                run: dotnet --info
+
+            -   name: Build HotCoffee Signaling Sample
+                run: dotnet build -c Release ${{ env.PathToSignalingSampleCsproj }}
+        
