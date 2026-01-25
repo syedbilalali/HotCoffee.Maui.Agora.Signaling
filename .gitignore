@@ -56,3 +56,4 @@ nunit-*.xml
 /src/.vs
 /src/android/HotCoffee.Maui.Agora.Signaling.Android/.vs
 /src/HotCoffee.Maui.Agora.Signaling/.vs
+/samples/HotCoffeeMauiAgoraSignalingSampleCsproj/.vs
