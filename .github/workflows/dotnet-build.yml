@@ -24,11 +24,11 @@ env:
     PathToSignalingiOSCsproj: 'ios/HotCoffee.Maui.Agora.Signaling.iOS/HotCoffee.Maui.Agora.Signaling.iOS.csproj'
     PathToSignalingMauiCsproj: 'HotCoffee.Maui.Agora.Signaling/HotCoffee.Maui.Agora.Signaling.csproj'
     PathToSignalingSampleCsproj: 'samples/HotCoffeeMauiAgoraSignalingSampleCsproj/HotCoffeeMauiAgoraSignalingSampleCsproj.csproj'
-    HotCoffeeAgoraSignalingLibrary_Xcode_Version: '26.1'
-    HotCoffeeAgoraSignalingSample_Xcode_Version: '26.2'
+    HotCoffeeAgoraSignalingLibrary_Xcode_Version: '26.0'
+    HotCoffeeAgoraSignalingSample_Xcode_Version: '26.0'
 
 jobs:
-    build-library:
+    build-sample:
         name: Build Library to Create Nugget
         runs-on: ${{ matrix.os }}
         strategy:
