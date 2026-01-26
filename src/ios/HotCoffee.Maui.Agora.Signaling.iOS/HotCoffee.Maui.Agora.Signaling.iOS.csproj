@@ -20,4 +20,13 @@
   <ItemGroup>
     <EditorConfigFiles Remove="D:\MAUI\HotCoffee.Maui.Agora.Signaling\src\ios\HotCoffee.Maui.Agora.Signaling.iOS\.editorconfig" />
   </ItemGroup>
+
+
+  <ItemGroup>
+		<NativeReference Include="../native/libs/AgoraRtmKit.xcframework">
+			<Kind>Framework</Kind>
+			<SmartLink>true</SmartLink>
+			<ForceLoad>true</ForceLoad>
+		</NativeReference>
+  </ItemGroup>
 </Project>
