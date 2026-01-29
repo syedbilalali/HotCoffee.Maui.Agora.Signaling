@@ -1,3 +1,6 @@
+global using System;
+global using Foundation;
+global using ObjCRuntime;
 namespace HotCoffee.Maui.Agora.Signaling.iOS
 {
     [Flags]
