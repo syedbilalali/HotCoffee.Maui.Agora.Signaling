@@ -1,6 +1,9 @@
+using System;
+using ObjCRuntime;
+
 namespace HotCoffee.Maui.Agora.Signaling.iOS
 {
-    [Flags]
+	[Flags]
 	[Native]
 	public enum AgoraRtmAreaCode : ulong
 	{
