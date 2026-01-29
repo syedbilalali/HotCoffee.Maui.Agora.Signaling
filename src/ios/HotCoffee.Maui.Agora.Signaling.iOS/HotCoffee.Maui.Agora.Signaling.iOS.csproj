@@ -4,6 +4,7 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>true</ImplicitUsings>
     <IsBindingProject>true</IsBindingProject>
+      <LangVersion>latest</LangVersion>
 
     <!--
       Enable trim analyzers for class libraries.
@@ -20,8 +21,6 @@
   <ItemGroup>
     <EditorConfigFiles Remove="D:\MAUI\HotCoffee.Maui.Agora.Signaling\src\ios\HotCoffee.Maui.Agora.Signaling.iOS\.editorconfig" />
   </ItemGroup>
-
-
   <ItemGroup>
 		<NativeReference Include="../native/libs/AgoraRtmKit.xcframework">
 			<Kind>Framework</Kind>

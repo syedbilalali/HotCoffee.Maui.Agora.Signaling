@@ -1,71 +1,8 @@
+global using System;
+global using Foundation;
+global using ObjCRuntime;
 namespace HotCoffee.Maui.Agora.Signaling.iOS
 {
-
-    // The first step to creating a binding is to add your native framework ("MyLibrary.xcframework")
-    // to the project.
-    // Open your binding csproj and add a section like this
-    // <ItemGroup>
-    //   <NativeReference Include="MyLibrary.xcframework">
-    //     <Kind>Framework</Kind>
-    //     <Frameworks></Frameworks>
-    //   </NativeReference>
-    // </ItemGroup>
-    //
-    // Once you've added it, you will need to customize it for your specific library:
-    //  - Change the Include to the correct path/name of your library
-    //  - Change Kind to Static (.a) or Framework (.framework/.xcframework) based upon the library kind and extension.
-    //    - Dynamic (.dylib) is a third option but rarely if ever valid, and only on macOS and Mac Catalyst
-    //  - If your library depends on other frameworks, add them inside <Frameworks></Frameworks>
-    // Example:
-    // <NativeReference Include="libs\MyTestFramework.xcframework">
-    //   <Kind>Framework</Kind>
-    //   <Frameworks>CoreLocation ModelIO</Frameworks>
-    // </NativeReference>
-    // 
-    // Once you've done that, you're ready to move on to binding the API...
-    //
-    // Here is where you'd define your API definition for the native Objective-C library.
-    //
-    // For example, to bind the following Objective-C class:
-    //
-    //     @interface Widget : NSObject {
-    //     }
-    //
-    // The C# binding would look like this:
-    //
-    //     [BaseType (typeof (NSObject))]
-    //     interface Widget {
-    //     }
-    //
-    // To bind Objective-C properties, such as:
-    //
-    //     @property (nonatomic, readwrite, assign) CGPoint center;
-    //
-    // You would add a property definition in the C# interface like so:
-    //
-    //     [Export ("center")]
-    //     CGPoint Center { get; set; }
-    //
-    // To bind an Objective-C method, such as:
-    //
-    //     -(void) doSomething:(NSObject *)object atIndex:(NSInteger)index;
-    //
-    // You would add a method definition to the C# interface like so:
-    //
-    //     [Export ("doSomething:atIndex:")]
-    //     void DoSomething (NSObject object, nint index);
-    //
-    // Objective-C "constructors" such as:
-    //
-    //     -(id)initWithElmo:(ElmoMuppet *)elmo;
-    //
-    // Can be bound as:
-    //
-    //     [Export ("initWithElmo:")]
-    //     NativeHandle Constructor (ElmoMuppet elmo);
-    //
-    // For more information, see https://aka.ms/ios-binding
-    //
     // @interface AgoraRtmPublishOptions : NSObject
 	[BaseType (typeof(NSObject))]
 	interface AgoraRtmPublishOptions
@@ -984,22 +921,22 @@ namespace HotCoffee.Maui.Agora.Signaling.iOS
 
 		// -(AgoraRtmStorage * _Nullable)getStorage __attribute__((swift_name("getStorage()")));
 		[NullAllowed, Export ("getStorage")]
-		[Verify (MethodToProperty)]
+		//[Verify (MethodToProperty)]
 		AgoraRtmStorage Storage { get; }
 
 		// -(AgoraRtmLock * _Nullable)getLock __attribute__((swift_name("getLock()")));
 		[NullAllowed, Export ("getLock")]
-		[Verify (MethodToProperty)]
+		//[Verify (MethodToProperty)]
 		AgoraRtmLock Lock { get; }
 
 		// -(AgoraRtmPresence * _Nullable)getPresence __attribute__((swift_name("getPresence()")));
 		[NullAllowed, Export ("getPresence")]
-		[Verify (MethodToProperty)]
+		//[Verify (MethodToProperty)]
 		AgoraRtmPresence Presence { get; }
 
 		// -(AgoraRtmHistory * _Nullable)getHistory __attribute__((swift_name("getHistory()")));
 		[NullAllowed, Export ("getHistory")]
-		[Verify (MethodToProperty)]
+		//[Verify (MethodToProperty)]
 		AgoraRtmHistory History { get; }
 
 		// -(void)renewToken:(NSString * _Nonnull)token completion:(AgoraRtmOperationBlock _Nullable)completionBlock __attribute__((swift_name("renewToken(_:completion:)")));
@@ -1043,7 +980,7 @@ namespace HotCoffee.Maui.Agora.Signaling.iOS
 		// +(NSString * _Nonnull)getVersion __attribute__((swift_name("getVersion()")));
 		[Static]
 		[Export ("getVersion")]
-		[Verify (MethodToProperty)]
+		//[Verify (MethodToProperty)]
 		string Version { get; }
 
 		// -(AgoraRtmStreamChannel * _Nullable)createStreamChannel:(NSString * _Nonnull)channelName error:(NSError * _Nullable * _Nullable)error __attribute__((swift_name("createStreamChannel(_:)")));
@@ -1053,7 +990,7 @@ namespace HotCoffee.Maui.Agora.Signaling.iOS
 
 		// -(AgoraRtmErrorCode)destroy __attribute__((swift_name("destroy()")));
 		[Export ("destroy")]
-		[Verify (MethodToProperty)]
+		//[Verify (MethodToProperty)]
 		AgoraRtmErrorCode Destroy { get; }
 	}
 
@@ -1104,7 +1041,7 @@ namespace HotCoffee.Maui.Agora.Signaling.iOS
 
 		// -(NSString * _Nonnull)getChannelName __attribute__((swift_name("getChannelName()")));
 		[Export ("getChannelName")]
-		[Verify (MethodToProperty)]
+		//[Verify (MethodToProperty)]
 		string ChannelName { get; }
 
 		// -(AgoraRtmErrorCode)setParameters:(NSString * _Nonnull)parameters __attribute__((swift_name("setParameters(_:)")));
@@ -1113,7 +1050,7 @@ namespace HotCoffee.Maui.Agora.Signaling.iOS
 
 		// -(AgoraRtmErrorCode)destroy;
 		[Export ("destroy")]
-		[Verify (MethodToProperty)]
+		//[Verify (MethodToProperty)]
 		AgoraRtmErrorCode Destroy { get; }
 	}
 
