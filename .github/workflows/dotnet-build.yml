@@ -20,16 +20,16 @@ env:
     CurrentSemanticVersionBase: '1.0.0'
     LATEST_NET_VERSION: '10.0.x'
     PathToLibrarySolution: 'src/HotCoffee.Maui.Agora.Signaling.slnx'
-    PathToSignalingAndroidCsproj: 'android/HotCoffee.Maui.Agora.Signaling.Android/HotCoffee.Maui.Agora.Signaling.Android.csproj'
-    PathToSignalingiOSCsproj: 'ios/HotCoffee.Maui.Agora.Signaling.iOS/HotCoffee.Maui.Agora.Signaling.iOS.csproj'
-    PathToSignalingMauiCsproj: 'HotCoffee.Maui.Agora.Signaling/HotCoffee.Maui.Agora.Signaling.csproj'
+    PathToSignalingAndroidCsproj: 'src/android/HotCoffee.Maui.Agora.Signaling.Android/HotCoffee.Maui.Agora.Signaling.Android.csproj'
+    PathToSignalingiOSCsproj: 'src/ios/HotCoffee.Maui.Agora.Signaling.iOS/HotCoffee.Maui.Agora.Signaling.iOS.csproj'
+    PathToSignalingMauiCsproj: 'src/HotCoffee.Maui.Agora.Signaling/HotCoffee.Maui.Agora.Signaling.csproj'
     PathToSignalingSampleCsproj: 'samples/HotCoffeeMauiAgoraSignalingSampleCsproj/HotCoffeeMauiAgoraSignalingSampleCsproj.csproj'
     HotCoffeeAgoraSignalingLibrary_Xcode_Version: '26.0'
     HotCoffeeAgoraSignalingSample_Xcode_Version: '26.0'
 
 jobs:
     build-sample:
-        name: Build Library to Create Nugget
+        name: Build Sample Project
         runs-on: ${{ matrix.os }}
         strategy:
             fail-fast: false
