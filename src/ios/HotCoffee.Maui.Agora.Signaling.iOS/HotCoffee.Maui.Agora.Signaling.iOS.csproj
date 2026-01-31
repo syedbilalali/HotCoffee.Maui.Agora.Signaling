@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-      <None Include="icon.png" />
+      <None Include="icon.png" Pack="true" PackagePath="" />
     <EditorConfigFiles Remove="D:\MAUI\HotCoffee.Maui.Agora.Signaling\src\ios\HotCoffee.Maui.Agora.Signaling.iOS\.editorconfig" />
   </ItemGroup>
   <ItemGroup>
