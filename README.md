@@ -7,4 +7,4 @@ A cross-platform .NET MAUI binding for the Agora Signaling SDK, designed to simp
 </a>
 
 ## Author
-[![Syed Bilal Ali](https://avatars.githubusercontent.com/u/9797708?v=7&s=50)](https://github.com/syedbilalali)
+[![Syed Bilal Ali](https://avatars.githubusercontent.com/u/9797708?v=7&s=50 "Owner")](https://github.com/syedbilalali)
