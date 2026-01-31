@@ -28,4 +28,32 @@
 			<ForceLoad>true</ForceLoad>
 		</NativeReference>
   </ItemGroup>
+    <PropertyGroup>
+        <GitInfoReportImportance>high</GitInfoReportImportance>
+        <PackageId>HotCoffee.Maui.Agora.Signaling.iOS</PackageId>
+        <PackageVersion>$(Version)$(VersionSuffix)</PackageVersion>
+        <Version>1.0.0-pre1</Version>
+        <Title>HotCoffee iOS Agora.io Signaling SDK</Title>
+        <Authors>programmerstalks</Authors>
+        <Owners>programmerstalks</Owners>
+        <Product>$(AssemblyName) ($(TargetFramework))</Product>
+        <PackageProjectUrl>https://github.com/syedbilalali/HotCoffee.Maui.Agora.Signaling</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/syedbilalali/HotCoffee.Maui.Agora.Signaling</RepositoryUrl>
+
+        <Description>.NET for iOS (formerly Xamarin.iOS) Binding Library - Agora.io Signaling SDK</Description>
+        <PackageReleaseNotes>See https://github.com/syedbilalali/HotCoffee.Maui.Agora.Signaling/releases</PackageReleaseNotes>
+        <Copyright>Copyright (c) Programmer Talks 2026</Copyright>
+        <NeutralLanguage>en</NeutralLanguage>
+        <PackageTags>Xamarin.iOS, NET MAUI, Agora.io, Agora, MonoDroid, Signaling, Voice Call, Video Call, Live Streaming</PackageTags>
+        <Summary>Agora is the leading video, voice and live interactive streaming platform, helping developers deliver rich in-app experiences—including embedded voice and video chat, real-time recording, interactive live streaming, and real-time messaging.</Summary>
+        <!-- Include symbol files (*.pdb) in the built .nupkg -->
+        <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
+        <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+        <!--<PackageReadmeFile>README.md</PackageReadmeFile>
+        <PackageLicenseFile>LICENSE.md</PackageLicenseFile>-->
+        <PackageIcon>icon.png</PackageIcon>
+        <UseFullSemVerForNuGet>false</UseFullSemVerForNuGet>
+        <!--<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>-->
+        <Configurations>Debug;Release</Configurations>
+    </PropertyGroup>
 </Project>
