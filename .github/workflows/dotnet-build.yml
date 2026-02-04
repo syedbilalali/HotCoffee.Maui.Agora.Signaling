@@ -157,7 +157,7 @@ jobs:
                   name: nuget-list
                   if-no-files-found: error
                   path: |
-                    ${{ github.workspace }}/.github/workflows/**/HotCoffee.Maui.Agora.*
+                    ${{ github.workspace }}/nuget/**/HotCoffee.Maui.Agora.Signaling.*
 
             -   name: Publish Packages
                 if: ${{ runner.os == 'Windows' }}
