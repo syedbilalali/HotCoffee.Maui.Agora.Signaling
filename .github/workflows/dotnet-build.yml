@@ -238,7 +238,7 @@ jobs:
                     dotnet nuget push
                     **/*.nupkg
                     --source "https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json"
-                    --api-key ${{ secrets.GITHUB_TOKEN }}
+                    --api-key ${{ secrets.NUGET_GITHUB_TOKEN }}
                     --skip-duplicate
 
     release-nuget:
