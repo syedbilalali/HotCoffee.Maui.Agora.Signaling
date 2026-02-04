@@ -78,7 +78,8 @@ jobs:
             fail-fast: false
 
             matrix:
-                os: [ windows-latest,macos-26 ]
+                #os: [ windows-latest,macos-26 ]
+                os: [windows]
         steps:
             -  name: Checkout code
                uses: actions/checkout@v6
