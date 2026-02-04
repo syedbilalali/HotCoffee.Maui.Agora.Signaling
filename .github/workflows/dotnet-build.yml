@@ -76,6 +76,7 @@ jobs:
         runs-on: ${{ matrix.os }}
         strategy:
             fail-fast: false
+
             matrix:
                 os: [ macos-26 ]
         steps:
@@ -86,11 +87,23 @@ jobs:
                if: startsWith(github.ref, 'refs/tags/') && (!endsWith(github.ref, '-ios') && !endsWith(github.ref, '-android'))
                run: echo "NugetPackageVersion=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
                shell: bash
+
+            -  name: Set NuGet Version to Tag Number for Android Signaling
+               if: startsWith(github.ref, 'refs/tags/') && endsWith(github.ref, '-android')
+               run: echo "NugetPackageVersionAndroid=${GITHUB_REF#refs/tags/}" | sed 's/-android//' >> $GITHUB_ENV
+               shell: bash
+
+            -  name: Set NuGet Version to Tag Number for iOS Signaling
+               if: startsWith(github.ref, 'refs/tags/') && endsWith(github.ref, '-ios')
+               run: echo "NugetPackageVersioniOS=${GITHUB_REF#refs/tags/}" | sed 's/-ios//' >> $GITHUB_ENV
+               shell: bash
                
             - name: Set NuGet Version to PR Version
               if: ${{ github.event_name == 'pull_request' }}
               run: |
                   echo "NugetPackageVersion=${{ env.CurrentSemanticVersionBase }}-build-${{ github.event.pull_request.number }}.${{ github.run_number }}+${{ github.sha }}"
+                  echo "NugetPackageVersionAndroid=${{ env.CurrentSemanticVersionBase }}-build-${{ github.event.pull_request.number }}.${{ github.run_number }}+${{ github.sha }}"
+                  echo "NugetPackageVersioniOS=${{ env.CurrentSemanticVersionBase }}-build-${{ github.event.pull_request.number }}.${{ github.run_number }}+${{ github.sha }}"
               shell: bash
             - name: Set Xcode Version
               if: runner.os == 'macOS'
@@ -120,8 +133,14 @@ jobs:
             - name: Build HotCoffee.Maui.Agora.Signaling.iOS
               run: dotnet build ${{ env.PathToSignalingiOSCsproj }} -c Release -p:PackageVersion=${{ env.NugetPackageVersion }} -p:Version=${{ env.NugetPackageVersion }}
 
+            - name: Build HotCoffee.Maui.Agora.Signaling.Android
+              run: dotnet build ${{ env.PathToSignalingAndroidCsproj }} -c Release -p:PackageVersion=${{ env.NugetPackageVersion }} -p:Version=${{ env.NugetPackageVersion }}
+
             - name: Pack HotCoffee.Maui.Agora.Signaling.iOS NuGet
               run: dotnet pack -c Release ${{ env.PathToSignalingiOSCsproj }} -p:PackageVersion=${{ env.NugetPackageVersion }} -p:Version=${{ env.NugetPackageVersion }}
+
+            - name: Pack HotCoffee.Maui.Agora.Signaling.Android NuGet
+              run: dotnet pack -c Release ${{ env.PathToSignalingAndroidCsproj }} -p:PackageVersion=${{ env.NugetPackageVersion }} -p:Version=${{ env.NugetPackageVersion }}
 
             -   name: Copy NuGet Packages to Staging Directory
                 if: ${{ runner.os == 'Windows' }} && !startsWith(github.ref, 'refs/tags/')
@@ -145,3 +164,105 @@ jobs:
                 with:
                   name: packages
                   path: ${{ github.workspace }}/nuget/
+    sign:
+        needs: [ build_library ]
+        if: ${{ startsWith(github.ref, 'refs/tags/') || (github.event_name != 'pull_request') }}
+        runs-on: windows-latest
+        permissions:
+            id-token: write # Required for requesting the JWT
+        
+        steps:
+            -   name: Install .NET SDK v${{ env.TOOLKIT_NET_VERSION }}
+                uses: actions/setup-dotnet@v5
+                with:
+                    dotnet-version: ${{ env.TOOLKIT_NET_VERSION }}
+                    dotnet-quality: 'ga'
+
+            -   name: Download NuGet List
+                uses: actions/download-artifact@v7
+                with:
+                    name: nuget-list
+                    path: ./
+
+            -   name: Download Package List
+                uses: actions/download-artifact@v7
+                with:
+                    name: packages
+                    path: ./packages
+
+            -   name: Remove packages for iOS Signaling-only release
+                if: startsWith(github.ref, 'refs/tags/') && endsWith(github.ref, '-ios')
+                run: |
+                    Get-ChildItem -Path "${{ github.workspace }}/packages" -Recurse -Filter "*.nupkg" | Where-Object { $_.Name -notmatch "HotCoffee\.Maui\.Agora\.Signaling.iOS" } | Remove-Item -Force
+
+            -   name: Remove packages for Android Signaling-only release
+                if: startsWith(github.ref, 'refs/tags/') && endsWith(github.ref, '-android')
+                run: |
+                    Get-ChildItem -Path "${{ github.workspace }}/packages" -Recurse -Filter "*.nupkg" | Where-Object { $_.Name -notmatch "HotCoffee\.Maui\.Agora\.Signaling.Android" } | Remove-Item -Force
+
+            -   name: Remove packages for Core & Main release
+                if: startsWith(github.ref, 'refs/tags/') && (!endsWith(github.ref, '-ios') && !endsWith(github.ref, '-android'))
+                run: |
+                    Get-ChildItem -Path "${{ github.workspace }}/packages" -Recurse -Filter "*.nupkg" | Where-Object { $_.Name -match "HotCoffee\.Maui\.Agora\.Signaling.(iOS|Android)" } | Remove-Item -Force   
+
+            -   name: Publish Packages
+                uses: actions/upload-artifact@v6
+                with:
+                    name: signed-packages
+                    if-no-files-found: error
+                    path: |
+                        ${{ github.workspace }}/packages/**/*.nupkg
+
+    release-main:
+        if: ${{ github.event_name != 'pull_request' && !startsWith(github.ref, 'refs/tags/') }}
+        needs: [ sign ]
+        runs-on: ubuntu-latest
+        
+        steps:
+            -   name: Install .NET SDK
+                uses: actions/setup-dotnet@v5
+                with:
+                    dotnet-version: ${{ env.TOOLKIT_NET_VERSION }}
+                    dotnet-quality: 'ga'
+
+            -   name: Download signed packages
+                uses: actions/download-artifact@v7
+                with:
+                    name: signed-packages
+                    path: ./packages
+
+            -   name: Upload artifact
+                if: github.event_name != 'pull_request'
+                run: >
+                    dotnet nuget push
+                    **/*.nupkg
+                    --source "https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json"
+                    --api-key ${{ secrets.GITHUB_TOKEN }}
+                    --skip-duplicate
+
+    release-nuget:
+        if: ${{ startsWith(github.ref, 'refs/tags/') }}
+        needs: [ sign ]
+        environment: nuget-release-gate # This gates this job until manually approved
+        runs-on: ubuntu-latest
+        
+        steps:
+            -   name: Install .NET SDK
+                uses: actions/setup-dotnet@v5
+                with:
+                    dotnet-version: ${{ env.TOOLKIT_NET_VERSION }}
+                    dotnet-quality: 'ga'
+
+            -   name: Download signed packages
+                uses: actions/download-artifact@v7
+                with:
+                    name: signed-packages
+                    path: ./packages
+
+            -   name: Push to NuGet.org
+                run: >
+                    dotnet nuget push
+                    **/*.nupkg
+                    --source https://api.nuget.org/v3/index.json
+                    --api-key ${{ secrets.NUGET_PACKAGE_PUSH_TOKEN }}
+                    --skip-duplicate
