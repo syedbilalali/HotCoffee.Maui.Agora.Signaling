@@ -7,8 +7,6 @@ namespace HotCoffee.Maui.Agora.Signaling
         private partial void PlatformInit(string appId, string userId)
         {
             RtmConfig? config = new RtmConfig.Builder(appId, userId).Build();
-
-            config.Log
         }
     }
 }

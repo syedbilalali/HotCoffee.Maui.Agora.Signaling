@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
+using HotCoffee.Maui.Agora.Signaling;
 
 namespace HotCoffeeMauiAgoraSignalingSampleCsproj
 {
@@ -9,6 +10,7 @@ namespace HotCoffeeMauiAgoraSignalingSampleCsproj
             var builder = MauiApp.CreateBuilder();
             builder
                 .UseMauiApp<App>()
+                .UseMauiAgoraSignaling()
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
