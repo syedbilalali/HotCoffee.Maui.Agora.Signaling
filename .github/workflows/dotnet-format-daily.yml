@@ -18,7 +18,7 @@ jobs:
         id: format
         uses: jfversluis/dotnet-format@v1.0.9
         with:
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          repo-token: ${{ secrets.NUGET_GITHUB_TOKEN }}
           action: "fix"
           #only-changed-files: true # only works for PRs
           workspace: "src/HotCoffee.Maui.Agora.Signaling.slnx"
