@@ -34,5 +34,11 @@
 	<ItemGroup Condition="$(TargetFramework.Contains('android'))">
 		<ProjectReference Include="..\android\HotCoffee.Maui.Agora.Signaling.Android\HotCoffee.Maui.Agora.Signaling.Android.csproj" />
 	</ItemGroup>
+	<ItemGroup>
+	  <Folder Include="Interfaces\" />
+	</ItemGroup>
+	<ItemGroup>
+	  <ProjectReference Include="..\HotCoffee.Maui.Agora.Signaling.Core\HotCoffee.Maui.Agora.Signaling.Core.csproj" />
+	</ItemGroup>
 
 </Project>

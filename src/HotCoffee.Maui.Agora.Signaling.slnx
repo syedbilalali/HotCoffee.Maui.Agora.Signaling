@@ -11,6 +11,7 @@
     <Deploy Solution="Debug|*" />
   </Project>
   <Project Path="android/HotCoffee.Maui.Agora.Signaling.Android/HotCoffee.Maui.Agora.Signaling.Android.csproj" />
+  <Project Path="HotCoffee.Maui.Agora.Signaling.Core/HotCoffee.Maui.Agora.Signaling.Core.csproj" Id="61a41ca5-863b-4e88-9d83-c53c75da6de6" />
   <Project Path="HotCoffee.Maui.Agora.Signaling/HotCoffee.Maui.Agora.Signaling.csproj">
     <BuildDependency Project="android/HotCoffee.Maui.Agora.Signaling.Android/HotCoffee.Maui.Agora.Signaling.Android.csproj" />
     <BuildDependency Project="ios/HotCoffee.Maui.Agora.Signaling.iOS/HotCoffee.Maui.Agora.Signaling.iOS.csproj" />

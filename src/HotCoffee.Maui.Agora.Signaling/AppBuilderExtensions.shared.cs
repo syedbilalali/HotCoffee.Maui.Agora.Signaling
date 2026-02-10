@@ -15,7 +15,7 @@ namespace HotCoffee.Maui.Agora.Signaling
         /// </summary>
         /// <param name="builder"></param>
         /// <returns></returns>
-        public static MauiAppBuilder UseMauiAgoraSignaling(this MauiAppBuilder builder)
+        public static MauiAppBuilder UseMauiAgoraSignaling(this MauiAppBuilder builder , Action<HotCoffee.Maui.Agora.Signaling.Core.Models.RtmOptions> options)
         {
 
             builder.ConfigureLifecycleEvents(static lifecycle =>

@@ -1,6 +1,4 @@
-﻿using HotCoffee.Maui.Agora.Signaling.Primitives;
-
-namespace HotCoffee.Maui.Agora.Signaling
+﻿namespace HotCoffee.Maui.Agora.Signaling
 {
     sealed partial class RtmManager
     {
