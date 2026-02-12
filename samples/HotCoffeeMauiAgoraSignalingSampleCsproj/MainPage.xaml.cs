@@ -1,4 +1,6 @@
-﻿using HotCoffee.Maui.Agora.Signaling;
+﻿using HotCoffee.Maui.Agora.Signaling.Core.Abstractions;
+using System.Diagnostics;
+
 namespace HotCoffeeMauiAgoraSignalingSampleCsproj
 {
     public partial class MainPage : ContentPage
@@ -8,8 +10,7 @@ namespace HotCoffeeMauiAgoraSignalingSampleCsproj
         public MainPage()
         {
             InitializeComponent();
-            RtmManager rtmManager = new RtmManager();
-            rtmManager.Init("","");
+           
         }
 
         private void OnCounterClicked(object? sender, EventArgs e)

@@ -9,8 +9,11 @@ namespace HotCoffeeMauiAgoraSignalingSampleCsproj
         {
             var builder = MauiApp.CreateBuilder();
             builder
+                 .UseMauiAgoraSignaling((options) => {
+
+                 })
                 .UseMauiApp<App>()
-                .UseMauiAgoraSignaling()
+               
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
