@@ -2,6 +2,8 @@
 #if ANDROID
 using HotCoffee.Maui.Agora.Signaling.Android;
 #endif
+using HotCoffee.Maui.Agora.Signaling.Core.Abstractions;
+using HotCoffee.Maui.Agora.Signaling.Core.Internals;
 using Microsoft.Maui.LifecycleEvents;
 using System.Runtime.CompilerServices;
 
@@ -30,8 +32,13 @@ namespace HotCoffee.Maui.Agora.Signaling
                         AppDomain.CurrentDomain.InitSignaling();    
                     });
                 });
+#else
+              
 #endif
+
             });
+            builder.Services.AddSingleton<IRtmPlatformStrategy, RtmManager>();
+            builder.Services.AddSingleton<IRtmClient,RtmClientCore>();
             return builder;
         }
     }
