@@ -19,9 +19,11 @@ namespace HotCoffee.Maui.Agora.Signaling.Android
                     return;
 
                 try
-                {
+                {   
+
+                    
                     // IMPORTANT: load dependencies FIRST
-                    JavaSystem.LoadLibrary("cipherdb");
+                    JavaSystem.LoadLibrary("aosl");
                     JavaSystem.LoadLibrary("agora-rtm-sdk");
 
                     _initialized = true;
