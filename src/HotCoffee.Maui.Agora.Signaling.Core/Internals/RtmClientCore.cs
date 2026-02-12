@@ -3,9 +3,8 @@ using HotCoffee.Maui.Agora.Signaling.Core.Models;
 
 namespace HotCoffee.Maui.Agora.Signaling.Core.Internals
 {
-    internal sealed class RtmClientCore : IRtmClient, IRtmEventSink
+    public sealed class RtmClientCore : IRtmClient, IRtmEventSink
     {
-
         private readonly IRtmPlatformStrategy _platform;
 
         public RtmClientCore(IRtmPlatformStrategy platform)
