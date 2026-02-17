@@ -1,17 +1,17 @@
 ﻿using HotCoffee.Maui.Agora.Signaling.Core.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HotCoffee.Maui.Agora.Signaling.Core.Abstractions
 {
-    public interface IRtmPlatformStrategy
-    {
+    /// <summary>
+    /// It provides a unified contract for initializing the RTM client, authenticating users, managing channel subscriptions, and sending messages.
+    /// </summary>
+    public interface IRtmPlatformStrategy : IDisposable
+    {   
         Task InitializeAsync(RtmOptions options, IRtmEventSink sink);
-        Task LoginAsync();
-        Task LogoutAsync();
-        Task SendMessageAsync(string channel, string message);
+        Task LoginAsync(string token, IRtmResultCallback resultCallback);
+        Task LogoutAsync(IRtmResultCallback resultCallback);
+        Task SendMessageAsync(string channel, string message, IRtmResultCallback resultCallback);
+        Task Subscribe(string channelName , IRtmResultCallback resultCallback);
+        Task Unsubscribe(string channelName , IRtmResultCallback resultCallback);
     }
 }

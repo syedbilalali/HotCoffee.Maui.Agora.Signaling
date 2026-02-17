@@ -1,9 +1,4 @@
 ﻿using HotCoffee.Maui.Agora.Signaling.Core.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HotCoffee.Maui.Agora.Signaling.Core.Abstractions
 {
@@ -11,17 +6,20 @@ namespace HotCoffee.Maui.Agora.Signaling.Core.Abstractions
     {
         Task InitializeAsync(RtmOptions options, CancellationToken ct = default);
 
-        Task LoginAsync(CancellationToken ct = default);
+        Task LoginAsync(string token,IRtmResultCallback resultCallback,CancellationToken ct = default);
 
-        Task LogoutAsync(CancellationToken ct = default);
+        Task LogoutAsync(IRtmResultCallback resultCallback ,CancellationToken ct = default);
 
         Task SendMessageAsync(
             string channel,
             string message,
-            CancellationToken ct = default);
+            IRtmResultCallback resultCallback,CancellationToken ct = default);
 
         event EventHandler<RtmMessage>? MessageReceived;
         event EventHandler<RtmConnectionStateChanged>? ConnectionStateChanged;
         event EventHandler<RtmPresenceEvent>? PresenceReceived;
+
+        Task Subscribe(string channelName, IRtmResultCallback resultCallback);
+        Task Unsubscribe(string channelName, IRtmResultCallback resultCallback);
     }
 }
