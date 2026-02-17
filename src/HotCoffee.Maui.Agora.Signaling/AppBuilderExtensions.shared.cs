@@ -41,5 +41,7 @@ namespace HotCoffee.Maui.Agora.Signaling
             builder.Services.AddSingleton<IRtmClient,RtmClientCore>();
             return builder;
         }
+
+
     }
 }

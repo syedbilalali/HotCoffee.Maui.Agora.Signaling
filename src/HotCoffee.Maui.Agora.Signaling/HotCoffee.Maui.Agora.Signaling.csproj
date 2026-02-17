@@ -37,5 +37,8 @@
 	<ItemGroup>
 	  <ProjectReference Include="..\HotCoffee.Maui.Agora.Signaling.Core\HotCoffee.Maui.Agora.Signaling.Core.csproj" />
 	</ItemGroup>
+	<ItemGroup>
+	  <Folder Include="Extensions\" />
+	</ItemGroup>
 
 </Project>
